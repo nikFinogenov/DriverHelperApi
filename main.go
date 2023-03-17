@@ -9,11 +9,10 @@ import (
 	"fmt"
 	_ "fmt"
 	"github.com/gin-gonic/gin"
-	_ "github.com/swaggo/files"
-	_ "github.com/swaggo/gin-swagger"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	_ "io"
+	"log"
 	"net/http"
 	_ "net/http"
 	"os"
@@ -45,13 +44,13 @@ func homeHandler(c *gin.Context) {
 func getCarHandler(c *gin.Context) {
 	id := c.Param("id")
 	objId, _ := primitive.ObjectIDFromHex(id)
-
 	fmt.Println(mongoDB.GetCar(CLIENT, objId))
+	c.JSON(http.StatusOK, gin.H{"status": "OK", "car": mongoDB.GetCar(CLIENT, objId)})
 }
 func setCarHandler(c *gin.Context) {
 	var requestBody mongoDB.Car
 	if err := c.BindJSON(&requestBody); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	mongoDB.SetCar(CLIENT, requestBody)
 }
@@ -60,7 +59,7 @@ func updateCarHandler(c *gin.Context) {
 	objId, _ := primitive.ObjectIDFromHex(id)
 	var requestBody mongoDB.Car
 	if err := c.BindJSON(&requestBody); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	mongoDB.UpdateCar(CLIENT, objId, requestBody)
 	//fmt.Println(id)
@@ -74,13 +73,13 @@ func deleteCarHandler(c *gin.Context) {
 func getProfileHandler(c *gin.Context) {
 	id := c.Param("id")
 	objId, _ := primitive.ObjectIDFromHex(id)
-
-	fmt.Println(mongoDB.GetProfile(CLIENT, objId))
+	data := mongoDB.GetProfile(CLIENT, objId)
+	c.Writer.Write(data)
 }
 func setProfileHandler(c *gin.Context) {
 	var requestBody mongoDB.Profile
 	if err := c.BindJSON(&requestBody); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	mongoDB.SetProfile(CLIENT, requestBody)
 }
@@ -89,7 +88,7 @@ func updateProfileHandler(c *gin.Context) {
 	objId, _ := primitive.ObjectIDFromHex(id)
 	var requestBody mongoDB.Profile
 	if err := c.BindJSON(&requestBody); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	mongoDB.UpdateProfile(CLIENT, objId, requestBody)
 	//fmt.Println(id)
@@ -109,7 +108,7 @@ func getEventHandler(c *gin.Context) {
 func setEventHandler(c *gin.Context) {
 	var requestBody mongoDB.Event
 	if err := c.BindJSON(&requestBody); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	mongoDB.SetEvent(CLIENT, requestBody)
 }
@@ -118,7 +117,7 @@ func updateEventHandler(c *gin.Context) {
 	objId, _ := primitive.ObjectIDFromHex(id)
 	var requestBody mongoDB.Event
 	if err := c.BindJSON(&requestBody); err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	mongoDB.UpdateEvent(CLIENT, objId, requestBody)
 	//fmt.Println(id)
@@ -177,8 +176,18 @@ func docHandler(c *gin.Context) {
 	data, _ := os.ReadFile("./swaggerui/swagger.json")
 	c.Writer.Write(data)
 }
+func getAvatarHandler(c *gin.Context) {
+	id := c.Param("id")
 
+	c.JSON(http.StatusOK, gin.H{"ava": mongoDB.GetAvatar(CLIENT, id)})
+}
+
+// @title Gingo Bookstore API
 func main() {
+	//mongoDB.UploadFile(CLIENT, "641430301e37ab5d90cba525", "ava.jpeg")
+	//objID, _ := primitive.ObjectIDFromHex("641430301e37ab5d90cba525")
+	//doc := mongoDB.Profile{Avatar: mongoDB.GetAvatar(CLIENT, "641430301e37ab5d90cba525")}
+	//mongoDB.UpdateProfile(CLIENT, objID, doc)
 	router := gin.New()
 	router.Use(CORSMiddleware())
 	router.Use(gin.Logger())
@@ -187,6 +196,19 @@ func main() {
 
 	router.GET("/", homeHandler)
 	//router.GET("/swagger", docHandler)
+	//data, _ := os.ReadFile("./docs/swagger.json")
+	//var payload map[string]interface{}
+	//_ = json.Unmarshal(data, &payload)
+	//str := fmt.Sprintf("%v", payload["info"])
+	//fmt.Println(payload["basePath"], " <------- basePath")
+
+	//basepath := payload["basePath"]
+	//docs.SwaggerInfo.
+	//router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	//fs := http.FileServer(http.Dir("dist"))
+	//http.Handle("/swagger/", http.StripPrefix("/swagger/", fs))
+	router.Static("/swagger/", "./dist")
+	router.GET("/getAvatar/:id", getAvatarHandler)
 
 	router.GET("/getCar/:id", getCarHandler)
 	router.POST("/addCar", setCarHandler)

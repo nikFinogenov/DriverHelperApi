@@ -1,0 +1,876 @@
+{
+  "produces": [
+    "application/json"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "DriverHelper API",
+    "description": "This API helps you to work with Mongo Database",
+    "contact": {
+      "email": "nikita.finogenov@gmail.com"
+    }
+  },
+  "host": "localhost:4112",
+  "paths": {
+    "/addProfile": {
+      "post": {
+        "description": "By passing in the appropriate json with parametrs, you can add a new profile\n",
+        "summary": "adds new profile",
+        "tags": [
+          "profiles"
+        ],
+        "operationId": "addsnewprofile",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "profile variables",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status OK, account added",
+            "headers": {}
+          },
+          "400": {
+            "description": "bad input parameter",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/getProfile/{userId}": {
+      "get": {
+        "description": "gets a profile to the DB",
+        "summary": "get a profile",
+        "tags": [
+          "profiles"
+        ],
+        "operationId": "getaprofile",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the profile to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item found",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/updateProfile/{userId}": {
+      "put": {
+        "description": "updates profile",
+        "summary": "updates a profile",
+        "tags": [
+          "profiles"
+        ],
+        "operationId": "updatesaprofile",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the profile to update"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "profile variables",
+            "schema": {
+              "$ref": "#/definitions/Profile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item updated",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/deleteProfile/{userId}": {
+      "delete": {
+        "description": "deletes profile",
+        "summary": "delete a profile",
+        "tags": [
+          "profiles"
+        ],
+        "operationId": "deleteaprofile",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the profile to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item deleted",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/addCar": {
+      "post": {
+        "description": "By passing in the appropriate json with parametrs, you can add a new car\n",
+        "summary": "adds new car",
+        "tags": [
+          "cars"
+        ],
+        "operationId": "addsnewcar",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "car variables",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status OK, account added",
+            "headers": {}
+          },
+          "400": {
+            "description": "bad input parameter",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/getCar/{carId}": {
+      "get": {
+        "description": "gets a car to the DB",
+        "summary": "get a car",
+        "tags": [
+          "cars"
+        ],
+        "operationId": "getacar",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the car to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item found",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/updateCar/{carId}": {
+      "put": {
+        "description": "updates a car",
+        "summary": "updates a car",
+        "tags": [
+          "cars"
+        ],
+        "operationId": "updatesacar",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the car to update"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "car variables",
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item updated",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/deleteCar/{carId}": {
+      "delete": {
+        "description": "updates car",
+        "summary": "updates a car",
+        "tags": [
+          "cars"
+        ],
+        "operationId": "Deleteupdatesacar",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "carId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the car to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item deleted",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/addEvent": {
+      "post": {
+        "description": "By passing in the appropriate json with parametrs, you can add a new event\n",
+        "summary": "adds new event",
+        "tags": [
+          "events"
+        ],
+        "operationId": "addsnewevent",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "event variables",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "status OK, event added",
+            "headers": {}
+          },
+          "400": {
+            "description": "bad input parameter",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/getEvent/{eventId}": {
+      "get": {
+        "description": "Gets an event to the DB",
+        "summary": "Gets an event",
+        "tags": [
+          "events"
+        ],
+        "operationId": "Getsanevent",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the event to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item created",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/updateEvent/{eventId}": {
+      "put": {
+        "description": "updates event",
+        "summary": "updates an event",
+        "tags": [
+          "events"
+        ],
+        "operationId": "updatesanevent",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the event to update"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "description": "event variables",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item updated",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/deleteEvent/{eventId}": {
+      "delete": {
+        "description": "deletes an event",
+        "summary": "delets an event",
+        "tags": [
+          "events"
+        ],
+        "operationId": "deletsanevent",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "String ID of the event to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "item updated",
+            "headers": {}
+          },
+          "400": {
+            "description": "invalid input, object invalid",
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Profile": {
+      "title": "Profile",
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "example": "John Doe",
+          "type": "string"
+        },
+        "email": {
+          "example": "john.doe@gmail.com",
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string",
+          "format": "binary"
+        }
+      },
+      "required": [
+        "fullName",
+        "email",
+        "avatar"
+      ]
+    },
+    "Car": {
+      "title": "Car",
+      "type": "object",
+      "properties": {
+        "make": {
+          "example": "Toyota",
+          "type": "string"
+        },
+        "model": {
+          "example": "Venza",
+          "type": "string"
+        },
+        "vin": {
+          "example": "W3r3rt4R4W3",
+          "type": "string"
+        },
+        "year": {
+          "example": 2005,
+          "type": "integer",
+          "format": "int32"
+        },
+        "purchaseDate": {
+          "example": "23-01-2008",
+          "type": "string"
+        },
+        "transmission": {
+          "example": "Automatic",
+          "type": "string"
+        },
+        "currentMileage": {
+          "example": 123456,
+          "type": "integer",
+          "format": "int32"
+        },
+        "bodyType": {
+          "example": "Crossover",
+          "type": "string"
+        }
+      },
+      "required": [
+        "make",
+        "model",
+        "vin",
+        "year",
+        "purchaseDate",
+        "transmission",
+        "currentMileage",
+        "bodyType"
+      ]
+    },
+    "Event": {
+      "title": "Event",
+      "type": "object",
+      "properties": {
+        "date": {
+          "example": "23-01-2005",
+          "type": "string"
+        },
+        "currentMileage": {
+          "example": 123456,
+          "type": "integer",
+          "format": "int32"
+        },
+        "additional": {
+          "example": "This ia additional info",
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Event_tags"
+          }
+        },
+        "eventType": {
+          "example": "Washing",
+          "type": "string"
+        },
+        "pricePer1L": {
+          "example": 45,
+          "type": "integer",
+          "format": "int32"
+        },
+        "gasStation": {
+          "example": "Wog",
+          "type": "string"
+        },
+        "fuelType": {
+          "example": "Gas",
+          "type": "string"
+        },
+        "fuelAmount": {
+          "example": 60,
+          "type": "integer",
+          "format": "int32"
+        },
+        "washStation": {
+          "example": "B2",
+          "type": "string"
+        },
+        "repairStation": {
+          "example": "MoyoSTO",
+          "type": "string"
+        },
+        "partsList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Event_partsList"
+          }
+        },
+        "carId": {
+          "example": "12e321121212ee12",
+          "type": "string"
+        }
+      },
+      "required": [
+        "date",
+        "currentMileage",
+        "additional",
+        "tags",
+        "eventType",
+        "pricePer1L",
+        "gasStation",
+        "fuelType",
+        "fuelAmount",
+        "washStation",
+        "repairStation",
+        "partsList",
+        "carId"
+      ]
+    },
+    "Event_tags": {
+      "title": "Event_tags",
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
+    "Event_partsList": {
+      "title": "Event_partsList",
+      "type": "object",
+      "properties": {
+        "part": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "err": {
+      "description": "Error response"
+    },
+    "errMsg": {
+      "description": "Error response with message",
+      "headers": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "loginResp": {
+      "description": "Login response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "expires": {
+            "type": "string",
+            "x-go-name": "Expires"
+          },
+          "refresh_token": {
+            "type": "string",
+            "x-go-name": "RefreshToken"
+          },
+          "token": {
+            "type": "string",
+            "x-go-name": "Token"
+          }
+        }
+      }
+    },
+    "ok": {
+      "description": "Success response"
+    },
+    "refreshResp": {
+      "description": "Token refresh response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "expires": {
+            "type": "string",
+            "x-go-name": "Expires"
+          },
+          "token": {
+            "type": "string",
+            "x-go-name": "Token"
+          }
+        }
+      }
+    },
+    "userListResp": {
+      "description": "Users model response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "Page"
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/User"
+            },
+            "x-go-name": "Users"
+          }
+        }
+      }
+    },
+    "userResp": {
+      "description": "User model response",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "boolean",
+            "x-go-name": "Active"
+          },
+          "address": {
+            "type": "string",
+            "x-go-name": "Address"
+          },
+          "company_id": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "CompanyID"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "CreatedAt"
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "DeletedAt"
+          },
+          "email": {
+            "type": "string",
+            "x-go-name": "Email"
+          },
+          "first_name": {
+            "type": "string",
+            "x-go-name": "FirstName"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "ID"
+          },
+          "last_login": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "LastLogin"
+          },
+          "last_name": {
+            "type": "string",
+            "x-go-name": "LastName"
+          },
+          "location_id": {
+            "type": "integer",
+            "format": "int64",
+            "x-go-name": "LocationID"
+          },
+          "mobile": {
+            "type": "string",
+            "x-go-name": "Mobile"
+          },
+          "phone": {
+            "type": "string",
+            "x-go-name": "Phone"
+          },
+          "role": {
+            "$ref": "#/definitions/Role"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "x-go-name": "UpdatedAt"
+          },
+          "username": {
+            "type": "string",
+            "x-go-name": "Username"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {},
+  "security": [
+    {
+      "bearer": [
+        "[]"
+      ]
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "tags": [
+    {
+      "name": "profiles",
+      "description": "Operations with profiles(user accounts)"
+    },
+    {
+      "name": "cars",
+      "description": "Operations with cars"
+    },
+    {
+      "name": "events",
+      "description": "Operations with events"
+    }
+  ],
+  "basePath": "/"
+}

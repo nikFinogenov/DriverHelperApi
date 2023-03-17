@@ -59,11 +59,11 @@ type Event struct {
 //		coll := cl.Database("data").Collection("cars")
 //		cursor, err := coll.Find(context.TODO(), filter)
 //		if err != nil {
-//			panic(err)
+//			log.Fatal(err)
 //		}
 //		var cars []Car
 //		if err = cursor.All(context.TODO(), &cars); err != nil {
-//			panic(err)
+//			log.Fatal(err)
 //		}
 //		return cars
 //	}
@@ -73,12 +73,12 @@ func GetCar(cl *mongo.Client, id primitive.ObjectID) interface{} {
 	var car Car
 	err := coll.FindOne(context.TODO(), filter).Decode(&car)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	res, err := json.Marshal(car)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	return string(res)
 }
@@ -86,7 +86,7 @@ func SetCar(cl *mongo.Client, doc Car) {
 	coll := cl.Database("data").Collection("cars")
 	_, err := coll.InsertOne(context.TODO(), doc)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 func UpdateCar(cl *mongo.Client, id primitive.ObjectID, doc Car) {
@@ -100,37 +100,37 @@ func UpdateCar(cl *mongo.Client, id primitive.ObjectID, doc Car) {
 	}
 	_, err := coll.UpdateByID(context.TODO(), id, update)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 func DeleteCar(cl *mongo.Client, id primitive.ObjectID) {
 	coll := cl.Database("data").Collection("cars")
 	_, err := coll.DeleteOne(context.TODO(), bson.M{"_id": id})
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 
-func GetProfile(cl *mongo.Client, id primitive.ObjectID) interface{} {
+func GetProfile(cl *mongo.Client, id primitive.ObjectID) []byte {
 	filter := bson.D{{"_id", id}}
 	coll := cl.Database("data").Collection("profiles")
 	var prof Profile
 	err := coll.FindOne(context.TODO(), filter).Decode(&prof)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	res, err := json.Marshal(prof)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-	return string(res)
+	return res
 }
 func SetProfile(cl *mongo.Client, doc Profile) {
 	coll := cl.Database("data").Collection("profiles")
 	_, err := coll.InsertOne(context.TODO(), doc)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 func UpdateProfile(cl *mongo.Client, id primitive.ObjectID, doc Profile) {
@@ -144,14 +144,14 @@ func UpdateProfile(cl *mongo.Client, id primitive.ObjectID, doc Profile) {
 	}
 	_, err := coll.UpdateByID(context.TODO(), id, update)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 func DeleteProfile(cl *mongo.Client, id primitive.ObjectID) {
 	coll := cl.Database("data").Collection("profiles")
 	_, err := coll.DeleteOne(context.TODO(), bson.M{"_id": id})
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 
@@ -161,12 +161,12 @@ func GetEvent(cl *mongo.Client, id primitive.ObjectID) interface{} {
 	var event Event
 	err := coll.FindOne(context.TODO(), filter).Decode(&event)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	res, err := json.Marshal(event)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	return string(res)
 }
@@ -174,7 +174,7 @@ func SetEvent(cl *mongo.Client, doc Event) {
 	coll := cl.Database("data").Collection("events")
 	_, err := coll.InsertOne(context.TODO(), doc)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 func UpdateEvent(cl *mongo.Client, id primitive.ObjectID, doc Event) {
@@ -188,14 +188,14 @@ func UpdateEvent(cl *mongo.Client, id primitive.ObjectID, doc Event) {
 	}
 	_, err := coll.UpdateByID(context.TODO(), id, update)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 func DeleteEvent(cl *mongo.Client, id primitive.ObjectID) {
 	coll := cl.Database("data").Collection("events")
 	_, err := coll.DeleteOne(context.TODO(), bson.M{"_id": id})
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 
@@ -211,8 +211,8 @@ func InitiateMongoClient() *mongo.Client {
 	}
 	return client
 }
-func UploadFile(conn *mongo.Client, file, filename string) {
-
+func UploadFile(conn *mongo.Client, profileId, file string) {
+	filename := profileId
 	data, err := os.ReadFile(file)
 	if err != nil {
 		log.Fatal(err)
@@ -238,7 +238,6 @@ func UploadFile(conn *mongo.Client, file, filename string) {
 		log.Fatal(err)
 	}
 	log.Printf("Write file to DB was successful. File size: %d M\n", fileSize)
-	fmt.Println()
 }
 func GetAvatar(conn *mongo.Client, file string) string {
 	// For CRUD operations, here is an example
